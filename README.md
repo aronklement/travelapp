@@ -1,2 +1,2 @@
 # travelapp
-A feladat leírása Hogy Miii.pdf dokumentumban található
+A feladat leírása a Hogy Miii.pdf dokumentumban található
