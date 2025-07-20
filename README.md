@@ -1,2 +1,2 @@
 # travelapp
-Egyetemi beadandó
+A feladat leírása Hogy Miii.pdf dokumentumban található
