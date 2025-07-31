@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\travelapp.Application\travelapp.Application.csproj" />
     <ProjectReference Include="..\travelapp.Model\travelapp.Model.csproj" />
     <ProjectReference Include="..\travelapp\travelapp.Application.csproj" />
   </ItemGroup>

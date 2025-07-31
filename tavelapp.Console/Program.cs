@@ -6,7 +6,7 @@ using travelapp;
 using travelapp.Persistance.MsSql;
 
 
-namespace tavelappConsole
+namespace travelappConsole
 {
     internal class Program
     {
