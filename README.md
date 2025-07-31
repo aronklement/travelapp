@@ -1,1 +1,1 @@
-Egyetemi beadandó, a feladat leírása a feladat.pdf fájlban található
+Egyetemi beadandó, a feladat leírása a travelapp.pdf fájlban található
