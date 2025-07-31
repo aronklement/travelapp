@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using travelapp.Model;
 using travelapp.Persistance;
-using travelapp.Application;
+using travelapp;
 
 using travelapp.Persistance.MsSql;
 
@@ -12,7 +12,7 @@ namespace travelapp.Tests
     public class Tester
     {
         protected FlightsService service;
-        protected Mock<IDataProvider> mockIDataProvider;
+        protected Mock<IDataProvider> mockDataProvider;
         protected List<Airline> mockAirlines;
         protected List<Destination> mockDestinations;
 
@@ -42,18 +42,18 @@ namespace travelapp.Tests
             mockDataProvider.Setup(t => t.GetAllAirlines()).Returns(mockAirlines);
             mockDataProvider.Setup(t => t.GetAllDestinations()).Returns(mockDestinations);
 
-            service = new HszfService(mockHszfDataProvider.Object);
+            service = new FlightsService(mockDataProvider.Object);
 
-            mockHszfDataProvider.Setup(t => t.GetAirlineByName("Wizz Air")).Returns(mockAirlines[0]);
+            mockDataProvider.Setup(t => t.GetAirlineByName("Wizz Air")).Returns(mockAirlines[0]);
             service.AddDestination(mockDestinations[4], "Wizz Air");
             service.AddDestination(mockDestinations[6], "Wizz Air");
-            mockHszfDataProvider.Setup(t => t.GetAirlineByName("Ryanair")).Returns(mockAirlines[1]);
+            mockDataProvider.Setup(t => t.GetAirlineByName("Ryanair")).Returns(mockAirlines[1]);
             service.AddDestination(mockDestinations[0], "Ryanair");
             service.AddDestination(mockDestinations[1], "Ryanair");
-            mockHszfDataProvider.Setup(t => t.GetAirlineByName("Air France")).Returns(mockAirlines[2]);
+            mockDataProvider.Setup(t => t.GetAirlineByName("Air France")).Returns(mockAirlines[2]);
             service.AddDestination(mockDestinations[7], "Air France");
             service.AddDestination(mockDestinations[2], "Air France");
-            mockHszfDataProvider.Setup(t => t.GetAirlineByName("Lufthansa")).Returns(mockAirlines[3]);
+            mockDataProvider.Setup(t => t.GetAirlineByName("Lufthansa")).Returns(mockAirlines[3]);
             service.AddDestination(mockDestinations[5], "Lufthansa");
             service.AddDestination(mockDestinations[3], "Lufthansa");
 
@@ -67,13 +67,13 @@ namespace travelapp.Tests
         {
             //Arrange
             var newAirline = new Airline("New Airline");
-            mockHszfDataProvider.Setup(m => m.GetAirlineByName(newAirline.airlineName)).Returns((Airline)null);
+            mockDataProvider.Setup(m => m.GetAirlineByName(newAirline.airlineName)).Returns((Airline)null);
 
             //Act
             service.AddAirline(newAirline);
 
             //Assert
-            mockHszfDataProvider.Verify(m => m.AddAirline(newAirline), Times.Once);
+            mockDataProvider.Verify(m => m.AddAirline(newAirline), Times.Once);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace travelapp.Tests
         {
             //Arrange
             var existingAirline = new Airline("Wizz Air");
-            mockHszfDataProvider.Setup(m => m.GetAirlineByName(existingAirline.airlineName)).Returns(mockAirlines[0]);
+            mockDataProvider.Setup(m => m.GetAirlineByName(existingAirline.airlineName)).Returns(mockAirlines[0]);
 
             //Assert
             Throws.TypeOf<AirlineAlreadyExists>();
@@ -92,20 +92,20 @@ namespace travelapp.Tests
         {
             //Arrange
             var airlineToRemove = mockAirlines[0];
-            mockHszfDataProvider.Setup(m => m.GetAirlineByName(airlineToRemove.airlineName)).Returns(airlineToRemove);
+            mockDataProvider.Setup(m => m.GetAirlineByName(airlineToRemove.airlineName)).Returns(airlineToRemove);
 
             //Act
             service.RemoveAirline(airlineToRemove);
 
             //Assert
-            mockHszfDataProvider.Verify(m => m.RemoveAirline(airlineToRemove), Times.Once);
+            mockDataProvider.Verify(m => m.RemoveAirline(airlineToRemove), Times.Once);
         }
         [Test]
         public void RemoveAirline_NotExistingAirline_ShouldThrowException()
         {
             //Arrange
             var airlineToRemove = new Airline("Not existing airlineName");
-            mockHszfDataProvider.Setup(m => m.GetAirlineByName(airlineToRemove.airlineName)).Returns((Airline)null);
+            mockDataProvider.Setup(m => m.GetAirlineByName(airlineToRemove.airlineName)).Returns((Airline)null);
 
             //Assert
             Throws.TypeOf<AirlineNotFound>();
@@ -119,13 +119,13 @@ namespace travelapp.Tests
         {
             //Arrange
             var newDestination = new Destination("Rome", "Italy", 1200, (float)199.99, false, 1);
-            mockHszfDataProvider.Setup(m => m.GetDestination("Wizz Air", "Rome")).Returns((Destination)null);
-            mockHszfDataProvider.Setup(m => m.GetAirlineByName("Wizz Air")).Returns(mockAirlines[0]);
+            mockDataProvider.Setup(m => m.GetDestination("Wizz Air", "Rome")).Returns((Destination)null);
+            mockDataProvider.Setup(m => m.GetAirlineByName("Wizz Air")).Returns(mockAirlines[0]);
             //Act
             service.AddDestination(newDestination, "Wizz Air");
 
             //Assert
-            mockHszfDataProvider.Verify(m => m.AddDestination(newDestination, "Wizz Air"), Times.Once);
+            mockDataProvider.Verify(m => m.AddDestination(newDestination, "Wizz Air"), Times.Once);
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace travelapp.Tests
         {
             //Arrange
             var existingDestination = mockDestinations[4]; //Athens
-            mockHszfDataProvider.Setup(m => m.GetDestination("Wizz Air", "Athens")).Returns(existingDestination);
+            mockDataProvider.Setup(m => m.GetDestination("Wizz Air", "Athens")).Returns(existingDestination);
 
             //Assert
             Throws.TypeOf<DestinationAlreadyExists>();
@@ -152,8 +152,8 @@ namespace travelapp.Tests
             var results = service.SearchByPrice(maxPrice).ToList();
 
             //Assert
-            Assert.AreEqual(6, results.Count);
-            Assert.IsTrue(results.All(d => d.price <= maxPrice));
+            Assert.That(results.Count == 6);
+            Assert.That(results.All(d => d.price <= maxPrice));
         }
 
         [Test]
@@ -166,8 +166,8 @@ namespace travelapp.Tests
             var results = service.SearchByCityContains(substring).ToList();
 
             //Assert
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Ljubljana", results[0].city);
+            Assert.That(results.Count == 1);
+            Assert.That(results[0].city.Equals("Ljubljana"));
         }
 
         [Test]
@@ -182,8 +182,8 @@ namespace travelapp.Tests
             var results = service.Search(city, maxPrice, maxDistance).ToList();
 
             //Assert
-            Assert.AreEqual(4, results.Count);
-            Assert.IsTrue(results.All(d =>
+            Assert.That(results.Count == 4);
+            Assert.That(results.All(d =>
                 d.city.Contains("a", StringComparison.OrdinalIgnoreCase) &&
                 d.price <= maxPrice &&
                 d.distance <= maxDistance));
@@ -203,7 +203,7 @@ namespace travelapp.Tests
             service.Report(tempPath);
 
             //Assert
-            Assert.IsTrue(File.Exists(expectedPath));
+            Assert.That(File.Exists(expectedPath));
         }
     }
 }
