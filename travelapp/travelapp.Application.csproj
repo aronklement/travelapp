@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\travelapp.Model\travelapp.Model.csproj" />
+    <ProjectReference Include="..\travelapp.Persistance.MsSql\travelapp.Persistance.MsSql.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,83 @@
+﻿[
+	{
+		"airlineName": "SkyWings Airlines",
+		"destinations": [
+			{
+				"city": "Amsterdam",
+				"country": "Netherlands",
+				"distance": 1000,
+				"price": 199.99,
+				"discounted": true,
+				"popularity": 2
+			}
+		]
+	},
+	{
+		"airlineName": "OceanAir",
+		"destinations": [
+			{
+				"city": "Los Angeles",
+				"country": "USA",
+				"distance": 9000,
+				"price": 699.00,
+				"discounted": false,
+				"popularity": 3
+			}
+		]
+	},
+	{
+		"airlineName": "AtlanticFly",
+		"destinations": [
+			{
+				"city": "Toronto",
+				"country": "Canada",
+				"distance": 6500,
+				"price": 549.00,
+				"discounted": true,
+				"popularity": 2
+			},
+			{
+				"city": "Montreal",
+				"country": "Canada",
+				"distance": 6300,
+				"price": 529.00,
+				"discounted": false,
+				"popularity": 1
+			}
+		]
+	},
+	{
+		"airlineName": "PolarAir",
+		"destinations": [
+			{
+				"city": "Helsinki",
+				"country": "Finland",
+				"distance": 1800,
+				"price": 279.00,
+				"discounted": true,
+				"popularity": 3
+			}
+		]
+	},
+	{
+		"airlineName": "DesertWind",
+		"destinations": [
+			{
+				"city": "Dubai",
+				"country": "UAE",
+				"distance": 4200,
+				"price": 499.00,
+				"discounted": false,
+				"popularity": 4
+			},
+			{
+				"city": "Doha",
+				"country": "Qatar",
+				"distance": 4000,
+				"price": 479.00,
+				"discounted": true,
+				"popularity": 2
+			}
+		]
+	}
+]
