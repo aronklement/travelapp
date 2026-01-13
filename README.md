@@ -41,14 +41,3 @@ A rétegek közötti kommunikáció **interfészeken keresztül** történik.
 - Konzolos felhasználói felület
 
 ---
-
-## Technológiák
-
-- .NET 8
-- C#
-- Entity Framework Core
-- MS SQL
-- Dependency Injection
-- Unit tesztek
-
----
