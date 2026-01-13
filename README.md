@@ -52,8 +52,3 @@ A rétegek közötti kommunikáció **interfészeken keresztül** történik.
 - Unit tesztek
 
 ---
-
-## Megjegyzés
-
-A projekt egyetemi feladatként készült, célja a **tiszta architektúra**,  
-**karbantartható kód** és a **vállalati alkalmazásokhoz hasonló felépítés** gyakorlása volt.
